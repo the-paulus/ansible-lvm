@@ -1,7 +1,7 @@
-Role Name
+LVM
 =========
 
-A brief description of the role goes here.
+Creates physical volumes, volume groups, and logical volumes.
 
 Requirements
 ------------
@@ -21,11 +21,22 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yml
+- hosts: nodes
+  vars:
+    lvm_groups:
+      vg00:
+        - "/dev/sda1"
+        - "/dev/sdb1"
+    lvms:
+      slash:
+        pvs: "/dev/sda1"
+        size: "100%FREE"
+        vg: "vg00"
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  roles:
+    - the-paulus.ansible-lvm
+```
 
 License
 -------

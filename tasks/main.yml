@@ -2,3 +2,9 @@
 - name: "Include tasks for {{ ansible_os_family }}"
   include_tasks: "{{ ansible_os_family }}/main.yml"
 
+- name: "Create volume groups"
+  lvg:
+    vg: "{{ item.key }}"
+    pvs: "{{ item['value'] }}"
+    state: present
+  with_dict: "{{ lvm_groups }}"
